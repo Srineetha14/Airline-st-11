@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-app = Flask(__name__)
+app = Flask(_name_)
 
 
 @app.route("/")
@@ -7,5 +7,5 @@ def index():
     return render_template("index.html")
 
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     app.run()

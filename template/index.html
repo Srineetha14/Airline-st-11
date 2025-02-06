@@ -4,186 +4,144 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Airlines Sentiment Analysis</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #1a237e, #0d47a1);
+        overflow-x: hidden;
+      }
+
+      .parallax-container {
+        height: 100vh;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .clouds {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="25" cy="30" r="15" fill="%23ffffff" opacity="0.2"/><circle cx="45" cy="25" r="12" fill="%23ffffff" opacity="0.2"/><circle cx="75" cy="35" r="18" fill="%23ffffff" opacity="0.2"/></svg>');
+        animation: cloudMove 60s linear infinite;
+      }
+
+      @keyframes cloudMove {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      .content {
+        position: relative;
+        z-index: 1;
+        padding: 2rem;
+        color: white;
+      }
+
+      header {
+        text-align: center;
+        padding: 4rem 0;
+        animation: fadeIn 1.5s ease-out;
+      }
+
+      h1 {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+        background: linear-gradient(45deg, #00bcd4, #b2ebf2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .airplane {
+        position: absolute;
+        top: 30%;
+        left: -200px;
+        font-size: 5rem;
+        animation: fly 15s linear infinite;
+      }
+
+      @keyframes fly {
+        0% {
+          transform: translateX(-200px) translateY(0);
+        }
+        50% {
+          transform: translateX(150vw) translateY(-50px);
+        }
+        100% {
+          transform: translateX(150vw) translateY(0);
+        }
+      }
+
+      .predict-btn {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 1.5rem 3rem;
+        font-size: 1.5rem;
+        background: linear-gradient(45deg, #00e676, #00bcd4);
+        border: none;
+        border-radius: 50px;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        z-index: 2;
+      }
+
+      .predict-btn:hover {
+        transform: translate(-50%, -50%) scale(1.1);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
   </head>
   <body>
-    <div class="min-h-screen">
-      <!-- Hero Section with Animated Plane -->
-      <div class="hero-section">
-        <div class="plane-container">
-          <div class="plane plane-1">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="128"
-              height="128"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path
-                d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"
-              />
-            </svg>
-          </div>
-          <div class="plane plane-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="96"
-              height="96"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path
-                d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"
-              />
-            </svg>
-          </div>
-        </div>
+    <div class="parallax-container">
+      <div class="clouds"></div>
+      <i class="fas fa-paper-plane airplane"></i>
 
-        <div class="container hero-content">
-          <h1 class="fade-in">Airlines Sentiment Analysis</h1>
-          <p class="fade-in-delayed">
-            Discover what passengers really think about their airline
-            experiences through advanced sentiment analysis
-          </p>
-          <button class="pulse-slow">Predict Sentiment</button>
-        </div>
-      </div>
+      <div class="content">
+        <header>
+          <h1>Airline Sentiment Analytics</h1>
+          <p>Real-time Airline Customer Feedback Analysis</p>
+        </header>
 
-      <!-- Features Grid -->
-      <div class="container features-grid">
-        <div class="feature-card">
-          <svg
-            class="icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="48"
-            height="48"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path
-              d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
-            />
-          </svg>
-          <h3>Real-time Analysis</h3>
-          <p>
-            Instant sentiment analysis of customer feedback across multiple
-            airlines
-          </p>
-        </div>
-
-        <div class="feature-card">
-          <svg
-            class="icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="48"
-            height="48"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M3 3v18h18" />
-            <path d="m19 9-5 5-4-4-3 3" />
-          </svg>
-          <h3>Data Visualization</h3>
-          <p>Clear insights through advanced data visualization techniques</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="thumbs-container">
-            <svg
-              class="icon thumbs-up"
-              xmlns="http://www.w3.org/2000/svg"
-              width="48"
-              height="48"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M7 10v12" />
-              <path
-                d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z"
-              />
-            </svg>
-            <svg
-              class="icon thumbs-down"
-              xmlns="http://www.w3.org/2000/svg"
-              width="48"
-              height="48"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M17 14V2" />
-              <path
-                d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22h0a3.13 3.13 0 0 1-3-3.88Z"
-              />
-            </svg>
-          </div>
-          <h3>Sentiment Tracking</h3>
-          <p>Track positive and negative sentiment trends over time</p>
-        </div>
-      </div>
-
-      <!-- Info Section -->
-      <div class="container info-section">
-        <div class="info-content">
-          <h2>Why Airline Sentiment Matters</h2>
-          <div class="info-grid">
-            <div class="info-text">
-              <p>
-                Understanding passenger sentiment is crucial for airlines to
-                improve their services and maintain customer satisfaction. Our
-                advanced analysis helps airlines:
-              </p>
-              <ul>
-                <li>
-                  <div class="bullet"></div>
-                  Identify areas for service improvement
-                </li>
-                <li>
-                  <div class="bullet"></div>
-                  Track customer satisfaction trends
-                </li>
-                <li>
-                  <div class="bullet"></div>
-                  Make data-driven decisions
-                </li>
-                <li>
-                  <div class="bullet"></div>
-                  Enhance passenger experience
-                </li>
-              </ul>
-            </div>
-            <div class="info-image">
-              <img
-                src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800"
-                alt="Airplane view"
-              />
-            </div>
-          </div>
-        </div>
+        <button class="predict-btn" onclick="analyzeSentiment()">
+          Analyze Sentiment Now
+          <i class="fas fa-rocket"></i>
+        </button>
       </div>
     </div>
+
+    <script>
+      function analyzeSentiment() {
+        window.location.href = "/predict";
+      }
+    </script>
   </body>
 </html>
