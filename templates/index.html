@@ -95,57 +95,9 @@
             box-shadow: 0 15px 40px rgba(0,0,0,0.4);
         }
 
-        .info-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 4rem 0;
-        }
-
-        .card {
-            background: rgba(255,255,255,0.1);
-            padding: 2rem;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            transform: translateY(50px);
-            opacity: 0;
-            transition: all 0.8s ease;
-        }
-
-        .card.visible {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .card h3 {
-            color: #00e676;
-            margin-bottom: 1rem;
-        }
-
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            margin: 3rem 0;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 1rem;
-        }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-50px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .info-cards {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
@@ -164,68 +116,13 @@
                 Analyze Sentiment Now
                 <i class="fas fa-rocket"></i>
             </button>
-
-            <div class="info-cards">
-                <div class="card">
-                    <h3><i class="fas fa-chart-line"></i> Real-time Analysis</h3>
-                    <p>Instant processing of thousands of customer reviews from major airlines worldwide.</p>
-                </div>
-                <div class="card">
-                    <h3><i class="fas fa-plane-departure"></i> Airline Coverage</h3>
-                    <p>Tracking sentiment across 50+ international airlines and 100+ domestic carriers.</p>
-                </div>
-                <div class="card">
-                    <h3><i class="fas fa-comments"></i> Feedback Sources</h3>
-                    <p>Aggregating data from social media, review platforms, and direct customer surveys.</p>
-                </div>
-            </div>
-
-            <div class="stats">
-                <div class="stat-item">
-                    <h4>1M+</h4>
-                    <p>Reviews Analyzed</p>
-                </div>
-                <div class="stat-item">
-                    <h4>95%</h4>
-                    <p>Accuracy Rate</p>
-                </div>
-                <div class="stat-item">
-                    <h4>24/7</h4>
-                    <p>Real-time Monitoring</p>
-                </div>
-            </div>
         </div>
     </div>
 
     <script>
-        // Scroll animation for cards
-        const cards = document.querySelectorAll('.card');
-        
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        cards.forEach(card => {
-            observer.observe(card);
-        });
-
-        // Button click handler
         function analyzeSentiment() {
-            // Add your sentiment analysis trigger logic here
-            alert('Redirecting to sentiment analysis...');
+            window.location.href = "/predict";
         }
-
-        // Additional animation for the airplane
-        document.addEventListener('DOMContentLoaded', () => {
-            const plane = document.querySelector('.fa-paper-plane');
-            setInterval(() => {
-                plane.style.transform = `translateY(${Math.sin(Date.now()/500)*20}px)`;
-            }, 50);
-        });
     </script>
 </body>
 </html>
