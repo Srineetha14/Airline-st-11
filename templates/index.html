@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airlines Sentiment Analysis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a237e, #0d47a1);
+            overflow-x: hidden;
+        }
+
+        .parallax-container {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .clouds {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="25" cy="30" r="15" fill="%23ffffff" opacity="0.2"/><circle cx="45" cy="25" r="12" fill="%23ffffff" opacity="0.2"/><circle cx="75" cy="35" r="18" fill="%23ffffff" opacity="0.2"/></svg>');
+            animation: cloudMove 60s linear infinite;
+        }
+
+        @keyframes cloudMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+            color: white;
+        }
+
+        header {
+            text-align: center;
+            padding: 4rem 0;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+            background: linear-gradient(45deg, #00bcd4, #b2ebf2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .airplane {
+            position: absolute;
+            top: 30%;
+            left: -200px;
+            font-size: 5rem;
+            animation: fly 15s linear infinite;
+        }
+
+        @keyframes fly {
+            0% { transform: translateX(-200px) translateY(0); }
+            50% { transform: translateX(150vw) translateY(-50px); }
+            100% { transform: translateX(150vw) translateY(0); }
+        }
+
+        .predict-btn {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 1.5rem 3rem;
+            font-size: 1.5rem;
+            background: linear-gradient(45deg, #00e676, #00bcd4);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 2;
+        }
+
+        .predict-btn:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="parallax-container">
+        <div class="clouds"></div>
+        <i class="fas fa-paper-plane airplane"></i>
+        
+        <div class="content">
+            <header>
+                <h1>Airline Sentiment Analytics</h1>
+                <p>Real-time Airline Customer Feedback Analysis</p>
+            </header>
+
+            <button class="predict-btn" onclick="analyzeSentiment()">
+                Analyze Sentiment Now
+                <i class="fas fa-rocket"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function analyzeSentiment() {
+            window.location.href = "/predict";
+        }
+    </script>
+</body>
+</html>
